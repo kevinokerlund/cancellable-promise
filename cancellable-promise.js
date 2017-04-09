@@ -12,7 +12,7 @@ function CancellablePromise(callback) {
 		return callback;
 	}
 
-	class Mutable extends Promise {
+	class Cancellable extends Promise {
 		constructor(fn) {
 			super(fn);
 		}
@@ -43,7 +43,7 @@ function CancellablePromise(callback) {
 		}
 	}
 
-	return new Mutable(function (resolve, reject) {
+	return new Cancellable(function (resolve, reject) {
 		let handler = val => (isCanceled) ? reject({isCanceled}) : resolve(val);
 		promise.then(handler);
 		promise.catch(handler);
